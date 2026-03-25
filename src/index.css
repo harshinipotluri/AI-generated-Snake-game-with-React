@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-digital: "VT323", monospace;
+  --color-cyan-glitch: #00FFFF;
+  --color-magenta-glitch: #FF00FF;
+}
+
+body {
+  font-family: "VT323", monospace;
+  background-color: #000000;
+  color: #00FFFF;
+  text-transform: uppercase;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Scanlines */
+.scanlines::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 50;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* Static Noise */
+.static-noise {
+  position: fixed;
+  top: -50%; left: -50%; right: -50%; bottom: -50%;
+  width: 200%; height: 200%;
+  background: transparent url('https://assets.iceable.com/img/noise-transparent.png') repeat 0 0;
+  background-repeat: repeat;
+  animation: bg-animation .2s infinite;
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 40;
+}
+
+@keyframes bg-animation {
+    0% { transform: translate(0,0) }
+    10% { transform: translate(-5%,-5%) }
+    20% { transform: translate(-10%,5%) }
+    30% { transform: translate(5%,-10%) }
+    40% { transform: translate(-5%,15%) }
+    50% { transform: translate(-10%,5%) }
+    60% { transform: translate(15%,0) }
+    70% { transform: translate(0,15%) }
+    80% { transform: translate(3%,35%) }
+    90% { transform: translate(-10%,10%) }
+}
+
+/* Glitch Text */
+.glitch-text {
+  position: relative;
+  color: #00FFFF;
+  display: inline-block;
+}
+.glitch-text::before, .glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 #FF00FF;
+  clip-path: inset(20% 0 80% 0);
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 #00FFFF;
+  clip-path: inset(80% 0 5% 0);
+  animation: glitch-anim 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 1px); }
+  20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+  40% { clip-path: inset(40% 0 50% 0); transform: translate(-2px, 2px); }
+  60% { clip-path: inset(80% 0 5% 0); transform: translate(2px, -2px); }
+  80% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+  100% { clip-path: inset(30% 0 50% 0); transform: translate(1px, -1px); }
+}
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); transform: translate(2px, 1px); }
+  20% { clip-path: inset(30% 0 20% 0); transform: translate(-2px, -1px); }
+  40% { clip-path: inset(70% 0 10% 0); transform: translate(2px, 2px); }
+  60% { clip-path: inset(20% 0 50% 0); transform: translate(-2px, -2px); }
+  80% { clip-path: inset(50% 0 30% 0); transform: translate(1px, 1px); }
+  100% { clip-path: inset(5% 0 80% 0); transform: translate(-1px, -1px); }
+}
+
+/* Screen Tear */
+.screen-tear {
+  animation: tear 4s infinite;
+}
+@keyframes tear {
+  0%, 95% { transform: translateX(0); }
+  96% { transform: translateX(-10px) skewX(10deg); }
+  97% { transform: translateX(10px) skewX(-10deg); }
+  98% { transform: translateX(0); }
+}
+
+/* Harsh Borders */
+.brutal-border {
+  border: 4px solid #00FFFF;
+  box-shadow: 6px 6px 0px #FF00FF;
+}
+.brutal-border-magenta {
+  border: 4px solid #FF00FF;
+  box-shadow: -6px 6px 0px #00FFFF;
+}
